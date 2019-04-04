@@ -226,5 +226,6 @@ let sortedByDate = subjects.sorted { actual, next in
     
     
 }
+
 print(sortedByDate.compactMap{$0.name})
 print(sortedByDate.compactMap{$0.year})
