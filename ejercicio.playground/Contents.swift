@@ -229,3 +229,17 @@ let sortedByDate = subjects.sorted { actual, next in
 
 print(sortedByDate.compactMap{$0.name})
 print(sortedByDate.compactMap{$0.year})
+
+subjects.forEach{
+let dateFormatterGet = DateFormatter()
+dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+let dateFormatterPrint = DateFormatter()
+dateFormatterPrint.dateFormat = "MMM dd,yyyy"
+
+if let date = dateFormatterGet.date(from: $0.year) {
+    print(dateFormatterPrint.string(from: date))
+} else {
+   print("There was an error decoding the string")
+}
+}
