@@ -33,6 +33,15 @@ enum Salary: CustomStringConvertible{
 
     }
 }
+extension Date{
+     func formatea () -> String{
+        let subjectDateFormatted = DateFormatter()
+        subjectDateFormatted.locale = Locale(identifier: "es_ES")
+        subjectDateFormatted.dateFormat="eeee dd 'de' MMMM 'de' yyyy"
+        return "\(subjectDateFormatted.string(from: self))"
+        
+    }
+}
 class Student : CustomStringConvertible{
     var name : String?
     var surname : String?
@@ -335,9 +344,7 @@ let sortedByDate = subjects.sorted { actual, next in
 print(sortedByDate.compactMap{$0.name})
 print(sortedByDate.compactMap{$0.year})
 
-let subjectDateFormatted = DateFormatter()
-subjectDateFormatted.locale = Locale(identifier: "es_ES")
-subjectDateFormatted.dateFormat="eeee dd 'de' MMMM 'de' yyyy"
+
 subjects.forEach{ subject in
     guard let name = subject.name,
         let year=subject.year
@@ -345,7 +352,7 @@ subjects.forEach{ subject in
         return
     }
     print("\(name)")
-    print("\(subjectDateFormatted.string(from: year))")
+    print(year.formatea())
     print()
     
 }
@@ -364,8 +371,10 @@ teachers.forEach{
 students.forEach{
     print ($0)
 }
+print ()
 teachers.forEach{
     print($0
     )
 }
+
 
