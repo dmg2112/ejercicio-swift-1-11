@@ -4,7 +4,35 @@ import UIKit
 enum TeacherType{
     case interno
     case externo}
+enum Salary: CustomStringConvertible{
+    case junior(amount: Float)
+    case senior(amount: Float)
+    case medium(amount: Float)
+    
+    var description: String{
+        switch self{
+        case .junior:
+            return "Junior"
+        case .medium :
+           return "Medium"
+        case .senior :
+            return "Senior"
+        }
+    }
+    var amount: String {
+        var sueldo : Float = 0.0
+        switch self{
+        case .junior(let amount):
+            sueldo = amount
+        case .medium (let amount):
+            sueldo = amount
+        case .senior (let amount):
+            sueldo = amount
+        }
+        return "\(sueldo)"
 
+    }
+}
 class Student{
     var name : String?
     var surname : String?
@@ -28,14 +56,16 @@ class Teacher{
     var age : Int?
     var type : TeacherType?
     var email : String?
+    var sueldo : Salary?
     
-    convenience init (name : String? = nil, surname : String? = nil, age: Int? = nil, type : TeacherType? = nil, email : String? = nil){
+    convenience init (name : String? = nil, surname : String? = nil, age: Int? = nil, type : TeacherType? = nil, email : String? = nil,sueldo : Salary? = nil){
         self.init()
         self.name = name
         self.surname = surname
         self.age = age
         self.type = type
         self.email = email
+        self.sueldo = sueldo
     }
 }
 class Subject{
@@ -49,6 +79,7 @@ class Subject{
         self.name = name
         self.students = students
         self.teachers = teachers
+        self.year = year
     }
 }
 
@@ -79,28 +110,37 @@ let students = [Student(name: "David",
 
 let teachers = [Teacher(name: "John",
                         type: .interno,
-                        email: "jjjhhhholasas@adsasd.com"),
+                        email: "jjjhhhholasas@adsasd.com",
+                        sueldo: .senior(amount: 120.0)),
+                
                 Teacher(name: "James",
                         type: .interno,
-                        email: "jjjjol@adsasd.com"),
+                        email: "jjjjol@adsasd.com",
+                        sueldo: .junior(amount: 10.0)),
                 Teacher(name: "Cris",
                         type: .externo,
-                        email: "cccccol@adsasd.com"),
+                        email: "cccccol@adsasd.com",
+                        sueldo: .medium(amount: 50.0)),
                 Teacher(name: "Michel",
                         type: .externo,
-                        email: "mmmmol@adsasd.com"),
+                        email: "mmmmol@adsasd.com",
+                        sueldo: .senior(amount: 1230.0)),
                 Teacher(name: "Rust",
                         type: .interno,
-                        email: "rrrrol@adsasd.com"),
+                        email: "rrrrol@adsasd.com",
+                        sueldo: .senior(amount: 145.0)),
                 Teacher(name: "Martin",
                         type: .interno,
-                        email: "mmmmol@adsasd.com"),
+                        email: "mmmmol@adsasd.com",
+                        sueldo: .junior(amount: 25.0)),
                 Teacher(name: "Wendell",
                         type: .externo,
-                        email: "wwwwol@adsasd.com"),
+                        email: "wwwwol@adsasd.com",
+                        sueldo: .senior(amount: 150.0)),
                 Teacher(name: "Elli",
                         type: .externo,
-                        email: "eeeol@adsasd.com")]
+                        email: "eeeol@adsasd.com",
+                        sueldo: .senior(amount: 500.0))]
 let subjects = [Subject(name: "iOS",
                         year: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         teachers: teachers.filter{ $0.name?.contains("u") ?? false},
@@ -152,7 +192,7 @@ students.forEach { student in
     let subject = subjects.filter{$0.students?.contains( where: {subject in
         guard let StudentSubjectName = subject.name else{
             return false }
-        return StudentSubjectName.compare(studentName) == .orderedSame
+        return StudentSubjectName.compare(studentName) == .orderedDescending
     }) ?? false }
     if(subject.count>1){
             print("\(studentName) esta en mas de una asignatura")
@@ -161,6 +201,10 @@ students.forEach { student in
     
     
 }
+
+
+
+
 
 
 
@@ -222,7 +266,7 @@ let sortedByDate = subjects.sorted { actual, next in
         return false}
     
     
-    return fecha1.compare(fecha2) == .orderedDescending
+    return fecha1.compare(fecha2) == .orderedAscending
     
     
 }
@@ -230,16 +274,28 @@ let sortedByDate = subjects.sorted { actual, next in
 print(sortedByDate.compactMap{$0.name})
 print(sortedByDate.compactMap{$0.year})
 
-subjects.forEach{
-let dateFormatterGet = DateFormatter()
-dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-let dateFormatterPrint = DateFormatter()
-dateFormatterPrint.dateFormat = "MMM dd,yyyy"
-
-if let date = dateFormatterGet.date(from: $0.year) {
-    print(dateFormatterPrint.string(from: date))
-} else {
-   print("There was an error decoding the string")
+let subjectDateFormatted = DateFormatter()
+subjectDateFormatted.locale = Locale(identifier: "es_ES")
+subjectDateFormatted.dateFormat="eeee dd 'de' MMMM 'de' yyyy"
+subjects.forEach{ subject in
+    guard let name = subject.name,
+        let year=subject.year
+        else{
+        return
+    }
+    print("\(name)")
+    print("\(subjectDateFormatted.string(from: year))")
+    
 }
+
+teachers.forEach{
+    guard let sueldo = $0.sueldo, let name = $0.name else{
+        return
+    }
+    print (name)
+    print (sueldo.description)
+    print (sueldo.amount)
+    print()
+    
+    
 }
