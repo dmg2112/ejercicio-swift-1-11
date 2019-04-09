@@ -33,7 +33,7 @@ enum Salary: CustomStringConvertible{
 
     }
 }
-class Student{
+class Student : CustomStringConvertible{
     var name : String?
     var surname : String?
     var age : Int?
@@ -41,16 +41,48 @@ class Student{
     var address : String?
     var email : String?
 
-    convenience init (name : String? = nil, surname : String? = nil, age: Int?, address : String? = nil, email : String? = nil){
+    convenience init (name : String? = nil, surname : String? = nil, age: Int?, phone: String? = nil, address : String? = nil, email : String? = nil){
         self.init()
         self.name = name
         self.surname = surname
         self.age = age
+        self.phone = phone;
         self.address = address
         self.email = email
     }
+    var description: String{
+        var descripcion = ""
+        var nombre = ""
+        var apellido = ""
+        var edad = 0
+        var telefono = ""
+        var direccion = ""
+        var mail = ""
+        
+        if let nombre = self.name{
+            descripcion += "name: " + nombre + ","
+        }
+        if let apellido = self.surname{
+            descripcion += "surname: " + apellido + ","
+        }
+        if let edad = self.age{
+            descripcion += "age: \(edad) ,"
+        }
+        if let telefono = self.phone{
+            descripcion += "phone: " + telefono + ","
+        }
+        if let direccion = self.address{
+            descripcion += "address: " + direccion + ","
+        }
+        if let mail = self.email{
+            descripcion += "email:" +  mail + ""
+        }
+        return descripcion
+        
+        
+    }
 }
-class Teacher{
+class Teacher : CustomStringConvertible{
     var name : String?
     var surname : String?
     var age : Int?
@@ -66,6 +98,32 @@ class Teacher{
         self.type = type
         self.email = email
         self.sueldo = sueldo
+    }
+    
+    var description: String{
+        var descripcion = ""
+        
+        if let nombre = self.name{
+            descripcion += "name: " + nombre + ","
+        }
+        if let apellido = self.surname{
+            descripcion += "surname: " + apellido + ","
+        }
+        if let edad = self.age{
+            descripcion += "age: \(edad) ,"
+        }
+        if let sueldo = self.sueldo{
+            descripcion += "sueldo: " + sueldo.description + ","
+        }
+        if let tipo = self.name{
+            descripcion += "type: " + tipo + ","
+        }
+        if let mail = self.email{
+            descripcion += "email:" +  mail + ""
+        }
+        return descripcion
+        
+        
     }
 }
 class Subject{
@@ -221,6 +279,7 @@ teachers.forEach { teacher in
         print (subject.count)
         print(subject.compactMap {$0.name})
         print("\(teacherName) imparte  mas de una asignatura")
+        print()
         
     }
     
@@ -240,6 +299,7 @@ teachers.forEach { teacher in
         print (subject.count)
         print(subject.compactMap {$0.name})
         print("\(teacherName) imparte  mas de una asignatura")
+        print()
         
     }
     
@@ -258,6 +318,7 @@ print (internos.compactMap{$0.name})
 print(internos.count)
 print (externos.compactMap{$0.name})
 print (externos.count)
+print()
 
 let sortedByDate = subjects.sorted { actual, next in
     guard   let fecha1 = actual.year,
@@ -285,6 +346,7 @@ subjects.forEach{ subject in
     }
     print("\(name)")
     print("\(subjectDateFormatted.string(from: year))")
+    print()
     
 }
 
@@ -299,3 +361,11 @@ teachers.forEach{
     
     
 }
+students.forEach{
+    print ($0)
+}
+teachers.forEach{
+    print($0
+    )
+}
+
