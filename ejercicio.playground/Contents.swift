@@ -45,12 +45,12 @@ extension Date{
 class Student : CustomStringConvertible{
     var name : String?
     var surname : String?
-    var age : Int?
+    var age : Date?
     var phone : String?
     var address : String?
     var email : String?
 
-    convenience init (name : String? = nil, surname : String? = nil, age: Int?, phone: String? = nil, address : String? = nil, email : String? = nil){
+    convenience init (name : String? = nil, surname : String? = nil, age: Date?, phone: String? = nil, address : String? = nil, email : String? = nil){
         self.init()
         self.name = name
         self.surname = surname
@@ -61,12 +61,6 @@ class Student : CustomStringConvertible{
     }
     var description: String{
         var descripcion = ""
-        var nombre = ""
-        var apellido = ""
-        var edad = 0
-        var telefono = ""
-        var direccion = ""
-        var mail = ""
         
         if let nombre = self.name{
             descripcion += "name: " + nombre + ","
@@ -151,28 +145,28 @@ class Subject{
 }
 
 let students = [Student(name: "David",
-                        age: 9,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "dadaadaol@adsasd.com"),
                 Student(name: "Diego",
-                        age: 14,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "ddddddol@adsasd.com"),
                 Student(name: "Mario",
-                        age: 16,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "aaaaol@adsasd.com"),
                 Student(name: "Javier",
-                        age: 20,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "ddddol@adsasd.com"),
                 Student(name: "Oliver",
-                        age: 5,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "wwwwol@adsasd.com"),
                 Student(name: "Carlos",
-                        age: 6,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "aaaol@adsasd.com"),
                 Student(name: "Alvaro",
-                        age: 5,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "olddd@adsasd.com"),
                 Student(name: "Minguez",
-                        age: 3,
+                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
                         email: "dsadasol@adsasd.com")]
 
 let teachers = [Teacher(name: "John",
@@ -316,8 +310,8 @@ teachers.forEach { teacher in
     
 }
 
-
-let sortedStudents = students.sorted(by:{$0.age ?? 0 < $1.age ?? 0})
+// comentado hasta que haga un 
+/*let sortedStudents = students.sorted(by:{$0.age ?? 0 < $1.age ?? 0})
 print(sortedStudents.compactMap{$0.name})
 print(sortedStudents.compactMap{$0.age})
 
@@ -327,7 +321,7 @@ print (internos.compactMap{$0.name})
 print(internos.count)
 print (externos.compactMap{$0.name})
 print (externos.count)
-print()
+print()*/
 
 let sortedByDate = subjects.sorted { actual, next in
     guard   let fecha1 = actual.year,
