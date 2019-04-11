@@ -234,44 +234,44 @@ let students = [Student(name: "Vivian",
                         email: "dsadasol@adsasd.com")]
 
 let teachers = [Teacher(name: "John",
-                         age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                         age: Calendar.current.date(from: DateComponents(year:1949,month:3)),
                         type: .interno,
                         
                         email: "Targaryen@adsasd.com",
                         sueldo: .senior(amount: 120.0)),
                 
                 Teacher(name: "X",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1995,month:3)),
                         type: .interno,
                         email: "X@adsasd.com",
                         sueldo: .junior(amount: 10.0)),
                 Teacher(name: "Tonny",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1909,month:3)),
                         type: .externo,
                         email: "cccccol@Iommi",
                         sueldo: .medium(amount: 50.0)),
                 Teacher(name: "Ozzy",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1099,month:3)),
                         type: .externo,
                         email: "mmmmol@Crowley",
                         sueldo: .senior(amount: 1230.0)),
                 Teacher(name: "Dio",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1909,month:3)),
                         type: .interno,
                         email: "rrrrol@adsasd.com",
                         sueldo: .senior(amount: 145.0)),
                 Teacher(name: "Aleister",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1299,month:3)),
                         type: .interno,
                         email: "aleister@adsasd.com",
                         sueldo: .junior(amount: 25.0)),
                 Teacher(name: "Ritchie",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1992,month:3)),
                         type: .externo,
                         email: "balckmoore@rainbow.com",
                         sueldo: .senior(amount: 150.0)),
                 Teacher(name: "Kubo",
-                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1994,month:3)),
                         type: .externo,
                         email: "two@strings.com",
                         sueldo: .senior(amount: 500.0))]
@@ -305,6 +305,7 @@ let subjects = [Subject(name: "iOS",
                         students: students.filter{ $0.name?.contains("a") ?? false}),
                 
 ]
+/*
 students.forEach { student in
     guard let studentName = student.name else {
         return
@@ -384,7 +385,7 @@ teachers.forEach { teacher in
 }
 
 // comentado hasta que haga un 
-/*let sortedStudents = students.sorted(by:{$0.age ?? 0 < $1.age ?? 0})
+let sortedStudents = students.sorted(by:{$0.age ?? 0 < $1.age ?? 0})
 print(sortedStudents.compactMap{$0.name})
 print(sortedStudents.compactMap{$0.age})
 
@@ -394,7 +395,7 @@ print (internos.compactMap{$0.name})
 print(internos.count)
 print (externos.compactMap{$0.name})
 print (externos.count)
-print()*/
+print()
 
 let sortedByDate = subjects.sorted { actual, next in
     guard   let fecha1 = actual.year,
@@ -435,7 +436,7 @@ teachers.forEach{
     print()
     
     
-}
+}*/
 print("**********10*********")
 print(students)
 print("*******************")
@@ -448,7 +449,7 @@ print("**********11*********")
 
 
 
-
+print("students")
 students.forEach{
     guard let edad = $0.age else{
         return
@@ -462,7 +463,8 @@ students.forEach{
 
 
 print ()
-students.forEach{
+print ("teachers")
+teachers.forEach{
     guard let edad = $0.age else{
         return
     }
