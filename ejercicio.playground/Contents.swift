@@ -240,7 +240,7 @@ let teachers = [Teacher(name: "John",
                         email: "Targaryen@adsasd.com",
                         sueldo: .senior(amount: 120.0)),
                 
-                Teacher(name: "X",
+                Teacher(name: "Jakö",
                         age: Calendar.current.date(from: DateComponents(year:1995,month:3)),
                         type: .interno,
                         email: "X@adsasd.com",
