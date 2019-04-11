@@ -1,9 +1,19 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-enum TeacherType{
+enum TeacherType: CustomStringConvertible{
     case interno
-    case externo}
+    case externo
+    var description: String{
+        switch self{
+        case .interno:
+            return "Interno"
+        case .externo :
+            return "Externo"
+        
+        }
+    }
+}
 enum Salary: CustomStringConvertible{
     case junior(amount: Float)
     case senior(amount: Float)
@@ -79,7 +89,7 @@ class Student : CustomStringConvertible{
             descripcion += "surname: " + apellido + ","
         }
         if let edad = self.age{
-            descripcion += "age: \(edad.formatea()) ,"
+            descripcion += "age: \(edad.edad()) ,"
         }
         if let telefono = self.phone{
             descripcion += "phone: " + telefono + ","
@@ -90,7 +100,9 @@ class Student : CustomStringConvertible{
         if let mail = self.email{
             descripcion += "email:" +  mail + ""
         }
+        descripcion+="\n"
         return descripcion
+        
         
         
     }
@@ -98,12 +110,12 @@ class Student : CustomStringConvertible{
 class Teacher : CustomStringConvertible{
     var name : String?
     var surname : String?
-    var age : Int?
+    var age : Date?
     var type : TeacherType?
     var email : String?
     var sueldo : Salary?
     
-    convenience init (name : String? = nil, surname : String? = nil, age: Int? = nil, type : TeacherType? = nil, email : String? = nil,sueldo : Salary? = nil){
+    convenience init (name : String? = nil, surname : String? = nil, age: Date? = nil, type : TeacherType? = nil, email : String? = nil,sueldo : Salary? = nil){
         self.init()
         self.name = name
         self.surname = surname
@@ -123,23 +135,24 @@ class Teacher : CustomStringConvertible{
             descripcion += "surname: " + apellido + ","
         }
         if let edad = self.age{
-            descripcion += "age: \(edad) ,"
+            descripcion += "age: \(edad.edad()) ,"
         }
         if let sueldo = self.sueldo{
             descripcion += "sueldo: " + sueldo.description + ","
         }
-        if let tipo = self.name{
-            descripcion += "type: " + tipo + ","
+        if let tipo = self.type{
+            descripcion += "type: " + tipo.description + ","
         }
         if let mail = self.email{
             descripcion += "email:" +  mail + ""
         }
+        descripcion+="\n"
         return descripcion
         
         
     }
 }
-class Subject{
+class Subject: CustomStringConvertible{
     var name : String?
     var year : Date?
     var teachers : [Teacher]?
@@ -152,18 +165,59 @@ class Subject{
         self.teachers = teachers
         self.year = year
     }
+    
+    var description: String{
+        var descripcion = ""
+        
+        if let nombre = self.name{
+            descripcion += "name: " + nombre + ","
+        }
+        if let estudiantes = self.students{
+            var studiantes = "["
+            estudiantes.forEach{
+                guard let nombre = $0.name else{
+                    return
+                }
+                studiantes+=" "+nombre
+                
+                
+            }
+            studiantes += "]"
+            descripcion += "students: " + studiantes + ","
+        }
+        if let profesores = self.teachers{
+            var teaches = "["
+            profesores.forEach{
+                guard let nombre = $0.name else{
+                    return
+                }
+                teaches+=" "+nombre
+                
+                
+            }
+            teaches += "]"
+            descripcion += "teachers: " + teaches + ","
+        }
+        if let fin = self.year{
+            descripcion += "fin: " + fin.formatea() + ","
+        }
+        descripcion+="\n"
+        return descripcion
+        
+        
+    }
 }
 
-let students = [Student(name: "David",
+let students = [Student(name: "Vivian",
                         age: Calendar.current.date(from: DateComponents(year:1900,month:3)),
-                        email: "dadaadaol@adsasd.com"),
-                Student(name: "Diego",
+                        email: "Campbell@adsasd.com"),
+                Student(name: "Ronnie",
                         age: Calendar.current.date(from: DateComponents(year:2000,month:2)),
-                        email: "ddddddol@adsasd.com"),
+                        email: "james@dio.com"),
                 Student(name: "Mario",
                         age: Calendar.current.date(from: DateComponents(year:1893,month:3)),
-                        email: "aaaaol@adsasd.com"),
-                Student(name: "Javier",
+                        email: "luigi@peach.com"),
+                Student(name: "Cliff",
                         age: Calendar.current.date(from: DateComponents(year:2001,month:6)),
                         email: "ddddol@adsasd.com"),
                 Student(name: "Oliver",
@@ -172,45 +226,54 @@ let students = [Student(name: "David",
                 Student(name: "Carlos",
                         age: Calendar.current.date(from: DateComponents(year:1997,month:3)),
                         email: "aaaol@adsasd.com"),
-                Student(name: "Alvaro",
+                Student(name: "Eddard",
                         age: Calendar.current.date(from: DateComponents(year:2000,month:7)),
                         email: "olddd@adsasd.com"),
-                Student(name: "Minguez",
+                Student(name: "Luke",
                         age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         email: "dsadasol@adsasd.com")]
 
 let teachers = [Teacher(name: "John",
+                         age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .interno,
-                        email: "jjjhhhholasas@adsasd.com",
+                        
+                        email: "Targaryen@adsasd.com",
                         sueldo: .senior(amount: 120.0)),
                 
-                Teacher(name: "James",
+                Teacher(name: "X",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .interno,
-                        email: "jjjjol@adsasd.com",
+                        email: "X@adsasd.com",
                         sueldo: .junior(amount: 10.0)),
-                Teacher(name: "Cris",
+                Teacher(name: "Tonny",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .externo,
-                        email: "cccccol@adsasd.com",
+                        email: "cccccol@Iommi",
                         sueldo: .medium(amount: 50.0)),
-                Teacher(name: "Michel",
+                Teacher(name: "Ozzy",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .externo,
-                        email: "mmmmol@adsasd.com",
+                        email: "mmmmol@Crowley",
                         sueldo: .senior(amount: 1230.0)),
-                Teacher(name: "Rust",
+                Teacher(name: "Dio",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .interno,
                         email: "rrrrol@adsasd.com",
                         sueldo: .senior(amount: 145.0)),
-                Teacher(name: "Martin",
+                Teacher(name: "Aleister",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .interno,
-                        email: "mmmmol@adsasd.com",
+                        email: "aleister@adsasd.com",
                         sueldo: .junior(amount: 25.0)),
-                Teacher(name: "Wendell",
+                Teacher(name: "Ritchie",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .externo,
-                        email: "wwwwol@adsasd.com",
+                        email: "balckmoore@rainbow.com",
                         sueldo: .senior(amount: 150.0)),
-                Teacher(name: "Elli",
+                Teacher(name: "Kubo",
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         type: .externo,
-                        email: "eeeol@adsasd.com",
+                        email: "two@strings.com",
                         sueldo: .senior(amount: 500.0))]
 let subjects = [Subject(name: "iOS",
                         year: Calendar.current.date(from: DateComponents(year:2018,month:3)),
@@ -361,6 +424,7 @@ subjects.forEach{ subject in
     
 }
 
+
 teachers.forEach{
     guard let sueldo = $0.sueldo, let name = $0.name else{
         return
@@ -372,14 +436,42 @@ teachers.forEach{
     
     
 }
+print("**********10*********")
+print(students)
+print("*******************")
+print(teachers)
+print("*******************")
+print (subjects)
+print("*******************")
+print ()
+print("**********11*********")
+
+
+
+
 students.forEach{
     guard let edad = $0.age else{
         return
     }
-    print("Student:\($0.name)")
+    guard let name = $0.name else{
+        return
+    }
+    print(name)
     print(edad.edad())
 }
+
+
 print ()
+students.forEach{
+    guard let edad = $0.age else{
+        return
+    }
+    guard let name = $0.name else{
+        return
+    }
+    print(name)
+    print(edad.edad())
+}
 
 
 
