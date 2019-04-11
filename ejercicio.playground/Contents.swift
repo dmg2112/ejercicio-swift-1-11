@@ -41,6 +41,16 @@ extension Date{
         return "\(subjectDateFormatted.string(from: self))"
         
     }
+    func edad() -> String {
+        let now = Date()
+        let calendr = Calendar.current
+        let ageComponents = calendr.dateComponents([.year],from: self, to: now)
+        guard let age = ageComponents.year else{
+            return "0"
+        }
+        
+        return " tiene \(age) años"
+    }
 }
 class Student : CustomStringConvertible{
     var name : String?
@@ -69,7 +79,7 @@ class Student : CustomStringConvertible{
             descripcion += "surname: " + apellido + ","
         }
         if let edad = self.age{
-            descripcion += "age: \(edad) ,"
+            descripcion += "age: \(edad.formatea()) ,"
         }
         if let telefono = self.phone{
             descripcion += "phone: " + telefono + ","
@@ -145,28 +155,28 @@ class Subject{
 }
 
 let students = [Student(name: "David",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1900,month:3)),
                         email: "dadaadaol@adsasd.com"),
                 Student(name: "Diego",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:2000,month:2)),
                         email: "ddddddol@adsasd.com"),
                 Student(name: "Mario",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1893,month:3)),
                         email: "aaaaol@adsasd.com"),
                 Student(name: "Javier",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:2001,month:6)),
                         email: "ddddol@adsasd.com"),
                 Student(name: "Oliver",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1980,month:3)),
                         email: "wwwwol@adsasd.com"),
                 Student(name: "Carlos",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1997,month:3)),
                         email: "aaaol@adsasd.com"),
                 Student(name: "Alvaro",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:2000,month:7)),
                         email: "olddd@adsasd.com"),
                 Student(name: "Minguez",
-                        age: Calendar.current.date(from: DateComponents(year:2018,month:3)),
+                        age: Calendar.current.date(from: DateComponents(year:1999,month:3)),
                         email: "dsadasol@adsasd.com")]
 
 let teachers = [Teacher(name: "John",
@@ -363,12 +373,15 @@ teachers.forEach{
     
 }
 students.forEach{
-    print ($0)
+    guard let edad = $0.age else{
+        return
+    }
+    print("Student:\($0.name)")
+    print(edad.edad())
 }
 print ()
-teachers.forEach{
-    print($0
-    )
-}
+
+
+
 
 
